@@ -2,13 +2,17 @@ package com.example.hp.alarm_repeat2;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -17,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
     private Button button;
+
+    EditText editText;
     Calendar calendar;
 
     @Override
@@ -25,10 +31,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button=(Button)findViewById(R.id.trigger);
-
+        editText=(EditText) findViewById(R.id.input);
         alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+        ContentResolver resolver=getContentResolver();
+        String oldDefaultKeyboard = Settings.Secure.getString(resolver, Settings.Secure.DEFAULT_INPUT_METHOD);
+        Toast.makeText(this, ""+oldDefaultKeyboard, Toast.LENGTH_SHORT).show();
+        System.out.println("oldDefaultKeyboard="+oldDefaultKeyboard);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                       imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                       System.out.println("EditText Keyboard"+imm.getCurrentInputMethodSubtype());
+
+            }
+        });
+//        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                editText.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+//
+////                        imm.getCurrentInputMethodSubtype();
+////                        Toast.makeText(MainActivity.this, ""+imm.getCurrentInputMethodSubtype(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
 
         button.setOnClickListener(new View.OnClickListener()
         {

@@ -19,20 +19,20 @@ public class AlarmReceiver extends BroadcastReceiver
      Intent intent2=new Intent(context,AlarmFunction.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
      context.startActivity(intent2);
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder mNotifyBuilder = (NotificationCompat.Builder) new NotificationCompat
-                .Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setWhen(System.currentTimeMillis())
-                .setContentTitle("Notification")
-                .setContentText("Alarm is trigger !")
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(pendingIntent);
-
-        notificationManager.notify(1, mNotifyBuilder.build());
+//        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+//        Intent notificationIntent = new Intent(context, MainActivity.class);
+//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        NotificationCompat.Builder mNotifyBuilder = (NotificationCompat.Builder) new NotificationCompat
+//                .Builder(context)
+//                .setSmallIcon(R.drawable.ic_launcher_background)
+//                .setWhen(System.currentTimeMillis())
+//                .setContentTitle("Notification")
+//                .setContentText("Alarm is trigger !")
+//                .setWhen(System.currentTimeMillis())
+//                .setContentIntent(pendingIntent);
+//
+//        notificationManager.notify(1, mNotifyBuilder.build());
 
     }
 }
